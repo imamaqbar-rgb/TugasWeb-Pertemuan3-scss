@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imam Aqbar Syahputra — Mahasiswa Pemrograman Web</title>
+    <meta name="description" content="Landing page pribadi Imam Aqbar Syahputra, mahasiswa Pemrograman Web Unimed. Kenali profil, riwayat pendidikan, hobi, dan makanan favorit saya.">
+
+    <!-- Open Graph Meta Tags (Bonus Point) -->
+    <meta property="og:title" content="Imam Aqbar Syahputra — Mahasiswa Pemrograman Web">
+    <meta property="og:description" content="Landing page pribadi mahasiswa Pemrograman Web Unimed. Kenali profil, riwayat pendidikan, hobi, dan makanan favorit saya.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://via.placeholder.com/1200x630.png?text=Imam+Aqbar+Syahputra">
+    <meta property="og:url" content="https://example.com/landing-page-pribadi">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+    <style>
+
+      :root{
+        --bg: #232019;
+        --surface: #2B271F;
+        --surface-line: #3B362A;
+        --text: #ECE4D3;
+        --text-soft: #ADA38A;
+        --blue: #86ABC7;
+        --amber: #E0A458;
+        --rose: #C97B84;
+        --radius: 3px;
+      }
+
+      *{ box-sizing: border-box; }
+      html{ scroll-behavior: smooth; scroll-padding-top: 76px; }
+
+      body{
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Spectral", serif;
+        font-size: 17px;
+        line-height: 1.65;
+      }
+
+      h1, h2, h3{
+        font-family: "Spectral", serif;
+        font-weight: 500;
+        color: var(--text);
+        line-height: 1.25;
+      }
+
+      p{ color: var(--text-soft); max-width: 62ch; }
+
+      a{ color: var(--blue); }
+      a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
+        outline: 2px solid var(--amber);
+        outline-offset: 3px;
+      }
+
+      .mono{
+        font-family: "JetBrains Mono", monospace;
+      }
+
+      /* ---------- Nav ---------- */
+
+      header{
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: rgba(35,32,25,0.92);
+        backdrop-filter: blur(6px);
+        border-bottom: 1px solid var(--surface-line);
+      }
+
+      header nav ul{
+        list-style: none;
+        margin: 0;
+        padding: 0 24px;
+        max-width: 880px;
+        margin-inline: auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 22px;
+      }
+
+      header nav a{
+        display: inline-block;
+        padding: 16px 0;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.82rem;
+        color: var(--text-soft);
+        text-decoration: none;
+        border-bottom: 2px solid transparent;
+        white-space: nowrap;
+      }
+
+      header nav a::before{
+        content: "// ";
+        color: var(--amber);
+      }
+
+      header nav a:hover, header nav a:focus-visible{
+        color: var(--text);
+        border-bottom-color: var(--amber);
+        outline: none;
+      }
+
+      /* ---------- Layout ---------- */
+
+      main{
+        max-width: 880px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      section{
+        padding: 72px 0;
+        border-bottom: 1px solid var(--surface-line);
+      }
+      section:last-child{ border-bottom: none; }
+
+      section > h2{
+        font-size: 1.7rem;
+        margin: 0 0 36px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      section > h2 .mono{
+        font-size: 0.78rem;
+        color: var(--amber);
+        margin-bottom: 8px;
+        font-weight: 400;
+        order: -1;
+      }
+
+      /* ---------- Tentang ---------- */
+
+      #tentang{ padding-top: 56px; }
+
+      #tentang h1{
+        font-size: clamp(2rem, 5vw, 2.7rem);
+        font-style: italic;
+        max-width: 18ch;
+        margin: 0 0 44px;
+      }
+
+      #tentang article{
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        gap: 36px;
+        align-items: start;
+      }
+
+      #tentang h2{ font-size: 1.3rem; margin-bottom: 16px; }
+
+      .editor-frame{
+        border: 1px solid var(--surface-line);
+        border-radius: var(--radius);
+        overflow: hidden;
+        background: var(--surface);
+        margin: 0;
+      }
+
+      .editor-frame .bar{
+        height: 26px;
+        background: var(--surface-line);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0 10px;
+      }
+
+      .editor-frame .bar span{
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--text-soft);
+        opacity: 0.5;
+      }
+
+      .editor-frame img{
+        display: block;
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+      }
+
+      .editor-frame figcaption{
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.72rem;
+        color: var(--text-soft);
+        padding: 10px 12px;
+        border-top: 1px solid var(--surface-line);
+      }
+
+      /* ---------- Pendidikan (timeline) ---------- */
+
+      .timeline{
+        position: relative;
+        padding-left: 32px;
+      }
+
+      .timeline::before{
+        content: "";
+        position: absolute;
+        left: 5px;
+        top: 8px;
+        bottom: 8px;
+        width: 1px;
+        background: var(--surface-line);
+      }
+
+      .timeline article{
+        position: relative;
+        padding-bottom: 32px;
+      }
+      .timeline article:last-child{ padding-bottom: 0; }
+
+      .timeline article::before{
+        content: "";
+        position: absolute;
+        left: -32px;
+        top: 7px;
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background: var(--bg);
+        border: 2px solid var(--blue);
+      }
+
+      .timeline h3{
+        font-size: 1.08rem;
+        margin: 0 0 6px;
+      }
+
+      .timeline p{ font-size: 0.95rem; margin: 0; }
+
+      /* ---------- Minat ---------- */
+
+      #Minat article{
+        border-left: 2px solid var(--blue);
+        padding: 4px 0 4px 20px;
+      }
+
+      #Minat h3{ font-size: 1.05rem; margin: 0 0 6px; }
+      #Minat p{ margin: 0; }
+
+      /* ---------- Hobi ---------- */
+
+      #hobi ul{
+        list-style: none;
+        margin: 20px 0 0;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      #hobi li{
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.85rem;
+        color: var(--text);
+        background: var(--surface);
+        border: 1px solid var(--surface-line);
+        border-radius: var(--radius);
+        padding: 8px 14px;
+      }
+
+      /* ---------- Favorit ---------- */
+
+      #favorit .items{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+        margin-top: 8px;
+      }
+
+      #favorit article{
+        border-left: 3px solid var(--amber);
+        padding-left: 22px;
+      }
+
+      #favorit article:nth-of-type(2){
+        border-left-color: var(--blue);
+      }
+
+      #favorit h3{ font-size: 1.1rem; margin: 0 0 14px; }
+
+      #favorit figure{ margin: 0 0 14px; }
+
+      #favorit img{
+        display: block;
+        width: 100%;
+        height: 170px;
+        object-fit: cover;
+        border-radius: var(--radius);
+        border: 1px solid var(--surface-line);
+      }
+
+      #favorit figcaption{
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.72rem;
+        color: var(--text-soft);
+        margin-top: 8px;
+      }
+
+      #favorit p{ font-size: 0.95rem; }
+
+      /* ---------- Kontak / form ---------- */
+
+      #kontak aside p{ font-size: 0.95rem; }
+
+      #kontak form{
+        margin-top: 24px;
+        background: var(--surface);
+        border: 1px solid var(--surface-line);
+        border-radius: var(--radius);
+        padding: 32px;
+      }
+
+      #kontak fieldset{
+        border: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      #kontak legend{
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.8rem;
+        color: var(--amber);
+        padding: 0 0 20px;
+      }
+
+      #kontak p{ margin: 0 0 20px; max-width: none; }
+
+      #kontak label{
+        display: block;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.8rem;
+        color: var(--text-soft);
+        margin-bottom: 8px;
+      }
+
+      #kontak label::after{ content: ":"; }
+
+      #kontak input[type="text"],
+      #kontak input[type="email"],
+      #kontak input[type="date"],
+      #kontak textarea{
+        width: 100%;
+        background: var(--bg);
+        border: 1px solid var(--surface-line);
+        border-radius: var(--radius);
+        color: var(--text);
+        font-family: "Spectral", serif;
+        font-size: 0.98rem;
+        padding: 11px 13px;
+      }
+
+      #kontak input:focus,
+      #kontak textarea:focus{
+        border-color: var(--amber);
+      }
+
+      #kontak input[type="color"]{
+        width: 56px;
+        height: 36px;
+        padding: 2px;
+        border: 1px solid var(--surface-line);
+        border-radius: var(--radius);
+        background: var(--bg);
+      }
+
+      #kontak input[type="range"]{
+        width: 100%;
+        accent-color: var(--amber);
+      }
+
+      #kontak textarea{ resize: vertical; }
+
+      #kontak button{
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.85rem;
+        border-radius: var(--radius);
+        padding: 12px 20px;
+        cursor: pointer;
+        border: 1px solid var(--surface-line);
+        background: transparent;
+        color: var(--text-soft);
+      }
+
+      #kontak button[type="submit"]{
+        background: var(--amber);
+        color: #23200f;
+        border-color: var(--amber);
+        font-weight: 600;
+        margin-right: 10px;
+      }
+
+      #kontak button:hover{ opacity: 0.88; }
+
+      /* ---------- Footer ---------- */
+
+      footer{
+        max-width: 880px;
+        margin: 0 auto;
+        padding: 32px 24px 56px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.78rem;
+        color: var(--text-soft);
+      }
+
+      footer p{ margin: 0 0 6px; max-width: none; }
+
+      /* ---------- Responsive ---------- */
+
+      @media (max-width: 720px){
+        #tentang article{ grid-template-columns: 1fr; }
+        #favorit .items{ grid-template-columns: 1fr; }
+        section{ padding: 52px 0; }
+        #kontak form{ padding: 24px; }
+      }
+
+      @media (prefers-reduced-motion: reduce){
+        html{ scroll-behavior: auto; }
+      }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav aria-label="Navigasi utama">
+            <ul>
+                <li><a href="#tentang">Tentang Saya</a></li>
+                <li><a href="#pendidikan">Riwayat Pendidikan</a></li>
+                <li><a href="#Minat">Minat</a></li>
+                <li><a href="#hobi">Hobi</a></li>
+                <li><a href="#favorit">Makanan &amp; Minuman Favorit</a></li>
+                <li><a href="#kontak">Kontak</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- ===================== SECTION: TENTANG SAYA ===================== -->
+        <section id="tentang" aria-labelledby="judul-tentang">
+            <h1 id="judul-tentang">Halo, Saya Imam Aqbar Syahputra</h1>
+
+            <article>
+                <figure class="editor-frame">
+                    <div class="bar"><span></span><span></span><span></span></div>
+                    <img src="foto/senin.jpeg" alt="Foto profil Ahmad Fauzan Ramadhan sedang tersenyum mengenakan kemeja biru" width="300" height="300">
+                    <figcaption>foto-profil.jpg &middot; diambil <time datetime="2025">2025</time></figcaption>
+                </figure>
+
+                <div>
+                    <h2>Tentang Diri Saya</h2>
+                    <p>
+                        Saya adalah mahasiswa Universitas Negeri Medan angkatan tahun 2025. Saya tinggal di
+                        Jln. Veteran, Gg. Nusa Indah, dan merupakan anak pertama dari dua bersaudara. Saya lahir
+                        pada tanggal 08 April 2008.
+                    </p>
+                </div>
+            </article>
+        </section>
+
+        <!-- ===================== SECTION: RIWAYAT PENDIDIKAN ===================== -->
+        <section id="pendidikan" aria-labelledby="judul-pendidikan">
+            <h2 id="judul-pendidikan"><span class="mono">// riwayat</span>Riwayat Pendidikan</h2>
+
+            <div class="timeline">
+                <article>
+                    <h3>Sekolah Dasar (SD)</h3>
+                    <p>
+                        SD Negeri 050715 Hinai, ditempuh pada tahun
+                        <time datetime="2013">2013</time> hingga <time datetime="2019">2019</time>.
+                    </p>
+                </article>
+
+                <article>
+                    <h3>Sekolah Menengah Pertama (SMP)</h3>
+                    <p>
+                        MTsS Al-Washliyah Stabat, ditempuh pada tahun
+                        <time datetime="2019">2019</time> hingga <time datetime="2022">2022</time>.
+                    </p>
+                </article>
+
+                <article>
+                    <h3>Sekolah Menengah Atas (SMA)</h3>
+                    <p>
+                        MAN 2 Langkat, Jurusan IPS, ditempuh pada tahun
+                        <time datetime="2022">2022</time> hingga <time datetime="2025">2025</time>.
+                    </p>
+                </article>
+
+                <article>
+                    <h3>Perguruan Tinggi</h3>
+                    <p>
+                        Universitas Negeri Medan (Unimed), Program Studi Ilmu Komputer,
+                        dimulai pada <time datetime="2025-08">Agustus 2025</time>.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <!-- ===================== SECTION: MINAT ===================== -->
+        <section id="Minat" aria-labelledby="judul-Minat">
+            <h2 id="judul-Minat"><span class="mono">// minat</span>Minat</h2>
+
+            <article>
+                <h3>Minat Bidang</h3>
+                <p>Pengembangan web dan basis data.</p>
+            </article>
+        </section>
+
+        <!-- ===================== SECTION: HOBI ===================== -->
+        <section id="hobi" aria-labelledby="judul-hobi">
+            <h2 id="judul-hobi"><span class="mono">// hobi</span>Hobi</h2>
+
+            <article>
+                <p>
+                    Di luar kegiatan akademik, saya memiliki beberapa hobi, di antaranya:
+                </p>
+                <ul>
+                    <li>Bermain game</li>
+                    <li>Badminton</li>
+                    <li>Memancing</li>
+                    <li>Bermain bola</li>
+                </ul>
+            </article>
+        </section>
+
+        <!-- ===================== SECTION: MAKANAN & MINUMAN FAVORIT ===================== -->
+        <section id="favorit" aria-labelledby="judul-favorit">
+            <h2 id="judul-favorit"><span class="mono">// favorit</span>Makanan &amp; Minuman Favorit</h2>
+
+            <div class="items">
+                <article>
+                    <h3>Makanan Favorit</h3>
+                    <figure>
+                        <img src="foto/mie ayam.jpeg" alt="Semangkuk mie ayam dengan topping ayam cincang dan sawi">
+                        <figcaption>Mie ayam, salah satu makanan favorit saya</figcaption>
+                    </figure>
+                    <p>Saya menyukai mie ayam karena rasanya gurih, lezat, dan mengenyangkan.</p>
+                </article>
+
+                <article>
+                    <h3>Minuman Favorit</h3>
+                    <figure>
+                        <img src="foto/green tea.jpeg" alt="Segelas green tea dingin di atas meja">
+                        <figcaption>Green tea, minuman favorit saya untuk menemani belajar</figcaption>
+                    </figure>
+                    <p>Saya menyukai green tea karena rasanya menyegarkan dan memiliki aroma yang khas.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- ===================== SECTION: KONTAK / FORM ===================== -->
+        <section id="kontak" aria-labelledby="judul-kontak">
+            <h2 id="judul-kontak"><span class="mono">// kontak</span>Hubungi Saya</h2>
+
+            <aside>
+                <p>Silakan isi formulir di bawah ini jika Anda ingin terhubung dengan saya.</p>
+            </aside>
+
+            <form action="#" method="post">
+                <fieldset>
+                    <legend>form-kontak.submit()</legend>
+
+                    <p>
+                        <label for="nama">Nama lengkap</label>
+                        <input type="text" id="nama" name="nama" required minlength="3" placeholder="Masukkan nama lengkap Anda">
+                    </p>
+
+                    <p>
+                        <label for="email">Alamat email</label>
+                        <input type="email" id="email" name="email" required placeholder="nama@contoh.com">
+                    </p>
+
+                    <p>
+                        <label for="tanggal_lahir">Tanggal lahir</label>
+                        <input type="date" id="tanggal_lahir" name="tanggal_lahir" required>
+                    </p>
+
+                    <p>
+                        <label for="warna_favorit">Warna favorit</label>
+                        <input type="color" id="warna_favorit" name="warna_favorit" value="#3366cc">
+                    </p>
+
+                    <p>
+                        <label for="tingkat_minat">Tingkat minat pada web development (1–10)</label>
+                        <input type="range" id="tingkat_minat" name="tingkat_minat" min="1" max="10" value="8">
+                    </p>
+
+                    <p>
+                        <label for="pesan">Pesan</label>
+                        <textarea id="pesan" name="pesan" rows="5" cols="40" required minlength="10" placeholder="Tulis pesan Anda di sini..."></textarea>
+                    </p>
+
+                    <p>
+                        <button type="submit">Kirim pesan</button>
+                        <button type="reset">Bersihkan formulir</button>
+                    </p>
+                </fieldset>
+            </form>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; <time datetime="2026">2026</time> Imam Aqbar Syahputra. Seluruh hak cipta dilindungi.</p>
+        <p>Dibuat untuk Tugas Rutin 1 — Mata Kuliah Pemrograman Web, Unimed.</p>
+    </footer>
+
+</body>
+</html>

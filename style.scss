@@ -1,0 +1,494 @@
+// =============================================================
+// Portofolio — Imam Aqbar Syahputra
+// Dikonversi dari <style> di index.html menjadi SCSS
+// =============================================================
+
+// ---------- Variabel ----------
+
+$bg:           #232019;
+$surface:      #2B271F;
+$surface-line: #3B362A;
+$text:         #ECE4D3;
+$text-soft:    #ADA38A;
+$blue:         #86ABC7;
+$amber:        #E0A458;
+$rose:         #C97B84;
+$radius:       3px;
+
+$font-serif: "Spectral", serif;
+$font-mono:  "JetBrains Mono", monospace;
+
+$container-width: 880px;
+$breakpoint-md:   720px;
+
+// ---------- Mixins ----------
+
+@mixin mono($size, $color: null) {
+  font-family: $font-mono;
+  font-size: $size;
+  @if $color {
+    color: $color;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: $breakpoint-md) {
+    @content;
+  }
+}
+
+@mixin container {
+  max-width: $container-width;
+  margin-inline: auto;
+}
+
+@mixin bordered($border-color: $surface-line) {
+  border: 1px solid $border-color;
+  border-radius: $radius;
+}
+
+// ---------- Base ----------
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 76px;
+
+  @media (prefers-reduced-motion: reduce) {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background: $bg;
+  color: $text;
+  font-family: $font-serif;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+h1, h2, h3 {
+  font-family: $font-serif;
+  font-weight: 500;
+  color: $text;
+  line-height: 1.25;
+}
+
+p {
+  color: $text-soft;
+  max-width: 62ch;
+}
+
+a {
+  color: $blue;
+}
+
+a, button, input, textarea {
+  &:focus-visible {
+    outline: 2px solid $amber;
+    outline-offset: 3px;
+  }
+}
+
+.mono {
+  font-family: $font-mono;
+}
+
+// ---------- Nav ----------
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba($bg, 0.92);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid $surface-line;
+
+  nav {
+    ul {
+      @include container;
+      list-style: none;
+      margin: 0;
+      padding: 0 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 22px;
+    }
+
+    a {
+      @include mono(0.82rem, $text-soft);
+      display: inline-block;
+      padding: 16px 0;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+
+      &::before {
+        content: "// ";
+        color: $amber;
+      }
+
+      &:hover,
+      &:focus-visible {
+        color: $text;
+        border-bottom-color: $amber;
+        outline: none;
+      }
+    }
+  }
+}
+
+// ---------- Layout ----------
+
+main {
+  @include container;
+  padding: 0 24px;
+}
+
+section {
+  padding: 72px 0;
+  border-bottom: 1px solid $surface-line;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  @include mobile {
+    padding: 52px 0;
+  }
+
+  > h2 {
+    font-size: 1.7rem;
+    margin: 0 0 36px;
+    display: flex;
+    flex-direction: column;
+
+    .mono {
+      font-size: 0.78rem;
+      color: $amber;
+      margin-bottom: 8px;
+      font-weight: 400;
+      order: -1;
+    }
+  }
+}
+
+// ---------- Tentang ----------
+
+#tentang {
+  padding-top: 56px;
+
+  h1 {
+    font-size: clamp(2rem, 5vw, 2.7rem);
+    font-style: italic;
+    max-width: 18ch;
+    margin: 0 0 44px;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+    margin-bottom: 16px;
+  }
+
+  article {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 36px;
+    align-items: start;
+
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+.editor-frame {
+  @include bordered;
+  overflow: hidden;
+  background: $surface;
+  margin: 0;
+
+  .bar {
+    height: 26px;
+    background: $surface-line;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 10px;
+
+    span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: $text-soft;
+      opacity: 0.5;
+    }
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+  }
+
+  figcaption {
+    @include mono(0.72rem, $text-soft);
+    padding: 10px 12px;
+    border-top: 1px solid $surface-line;
+  }
+}
+
+// ---------- Pendidikan (timeline) ----------
+
+.timeline {
+  position: relative;
+  padding-left: 32px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: $surface-line;
+  }
+
+  article {
+    position: relative;
+    padding-bottom: 32px;
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: -32px;
+      top: 7px;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: $bg;
+      border: 2px solid $blue;
+    }
+  }
+
+  h3 {
+    font-size: 1.08rem;
+    margin: 0 0 6px;
+  }
+
+  p {
+    font-size: 0.95rem;
+    margin: 0;
+  }
+}
+
+// ---------- Minat ----------
+
+#Minat {
+  article {
+    border-left: 2px solid $blue;
+    padding: 4px 0 4px 20px;
+  }
+
+  h3 {
+    font-size: 1.05rem;
+    margin: 0 0 6px;
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+// ---------- Hobi ----------
+
+#hobi {
+  ul {
+    list-style: none;
+    margin: 20px 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  li {
+    @include mono(0.85rem, $text);
+    @include bordered;
+    background: $surface;
+    padding: 8px 14px;
+  }
+}
+
+// ---------- Favorit ----------
+
+#favorit {
+  .items {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 8px;
+
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  article {
+    border-left: 3px solid $amber;
+    padding-left: 22px;
+
+    &:nth-of-type(2) {
+      border-left-color: $blue;
+    }
+  }
+
+  h3 {
+    font-size: 1.1rem;
+    margin: 0 0 14px;
+  }
+
+  figure {
+    margin: 0 0 14px;
+  }
+
+  img {
+    @include bordered;
+    display: block;
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+  }
+
+  figcaption {
+    @include mono(0.72rem, $text-soft);
+    margin-top: 8px;
+  }
+
+  p {
+    font-size: 0.95rem;
+  }
+}
+
+// ---------- Kontak / form ----------
+
+#kontak {
+  aside p {
+    font-size: 0.95rem;
+  }
+
+  form {
+    @include bordered;
+    margin-top: 24px;
+    background: $surface;
+    padding: 32px;
+
+    @include mobile {
+      padding: 24px;
+    }
+  }
+
+  fieldset {
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  legend {
+    @include mono(0.8rem, $amber);
+    padding: 0 0 20px;
+  }
+
+  p {
+    margin: 0 0 20px;
+    max-width: none;
+  }
+
+  label {
+    @include mono(0.8rem, $text-soft);
+    display: block;
+    margin-bottom: 8px;
+
+    &::after {
+      content: ":";
+    }
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="date"],
+  textarea {
+    @include bordered;
+    width: 100%;
+    background: $bg;
+    color: $text;
+    font-family: $font-serif;
+    font-size: 0.98rem;
+    padding: 11px 13px;
+  }
+
+  input:focus,
+  textarea:focus {
+    border-color: $amber;
+  }
+
+  input[type="color"] {
+    @include bordered;
+    width: 56px;
+    height: 36px;
+    padding: 2px;
+    background: $bg;
+  }
+
+  input[type="range"] {
+    width: 100%;
+    accent-color: $amber;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  button {
+    @include mono(0.85rem, $text-soft);
+    border-radius: $radius;
+    padding: 12px 20px;
+    cursor: pointer;
+    border: 1px solid $surface-line;
+    background: transparent;
+
+    &:hover {
+      opacity: 0.88;
+    }
+
+    &[type="submit"] {
+      background: $amber;
+      color: #23200f;
+      border-color: $amber;
+      font-weight: 600;
+      margin-right: 10px;
+    }
+  }
+}
+
+// ---------- Footer ----------
+
+footer {
+  @include container;
+  @include mono(0.78rem, $text-soft);
+  padding: 32px 24px 56px;
+
+  p {
+    margin: 0 0 6px;
+    max-width: none;
+  }
+}
